@@ -10,18 +10,17 @@ body{
   font-size: 15.3px;
 }
 #nav > #head1 {
-  padding-right: 197px;
   padding-left: 10px;
-}
-#nav > #head2, #head3 {
-  padding-right: 100px;
-}
-#nav > #head4 {
-  padding-right: 197px;
-}
-#nav > #head5 {
-  padding-right: 100px;
 }
 #nav > #head6 {
   padding-right: 10px;
+}
+#nav > #brk1 {
+  padding-right: 197px;
+}
+#nav > #brk2, #brk3, #brk5 {
+  padding-right: 100px;
+}
+#nav > #brk4 {
+  padding-right: 197px;
 }
