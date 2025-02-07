@@ -1,6 +1,6 @@
 import Header from "./header";
 import './globals.css';
-import './landing.css';
+import './styles/landing.css';
 
 export default function Home() {
   return (
