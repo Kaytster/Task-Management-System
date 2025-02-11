@@ -1,7 +1,7 @@
-import Link from 'next/link';
+import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
 import '../styles/signup.css';
-<Link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"></Link>
+
 
 export default function Signup() {
     return (
@@ -9,30 +9,32 @@ export default function Signup() {
             <body>
                 <main>
                     <h1>Jello</h1>
-                    <div class="dropdown-menu">
-  <form class="px-4 py-3">
-    <div class="mb-3">
-      <label for="exampleDropdownFormEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com"/>
-    </div>
-    <div class="mb-3">
-      <label for="exampleDropdownFormPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password"/>
-    </div>
-    <div class="mb-3">
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="dropdownCheck"/>
-        <label class="form-check-label" for="dropdownCheck">
-          Remember me
-        </label>
-      </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </form>
-  <div class="dropdown-divider"></div>
-  <a class="dropdown-item" href="#">New around here? Sign up</a>
-  <a class="dropdown-item" href="#">Forgot password?</a>
-</div>
+                    <div id='form'>
+                    <form>
+                        <h2>Signup</h2>
+                        <div class="mb-3">
+                            <label class="form-label">First Name</label>
+                            <input type="fname" class="form-control" id="InputFname"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Last Name</label>
+                            <input type="lname" class="form-control" id="InputLname"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="InputEmail"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="username" class="form-control" id="InputUsername"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="InputPassword"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                    </div>
                 </main>
             </body>
         </html>

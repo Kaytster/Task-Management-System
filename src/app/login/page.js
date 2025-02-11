@@ -1,4 +1,4 @@
-import Form from 'next/form';
+import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
 import '../styles/login.css';
 export default function Login() {
@@ -8,15 +8,18 @@ export default function Login() {
                 <main>
                     <h1>Jello</h1>
                     <div id='form'>
-                        <Form>
-                            <h2>Login</h2>
-                            <label>Username</label>
-                            <input name='Username' />
-                            <label>Password</label>
-                            <input name='Password' />
-                            <button type='submit'>Login</button>
-                            <p>New to Hello?<u><b>Sign up</b></u></p>
-                        </Form>
+                    <form>
+                        <h2>Login</h2>
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="username" class="form-control" id="InputUsername"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="InputPassword"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
                     </div>
                 </main>
             </body>
