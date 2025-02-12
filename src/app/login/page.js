@@ -11,14 +11,14 @@ export default function Login() {
                     <form>
                         <h2>Login</h2>
                         <div class="mb-3">
-                            <label class="form-label">Username</label>
+                            <label class="form-label"><b>Username</b></label>
                             <input type="username" class="form-control" id="InputUsername"/>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Password</label>
+                            <label class="form-label"><b>Password</b></label>
                             <input type="password" class="form-control" id="InputPassword"/>
                         </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit" class="btn-primary">Login</button> 
                     </form>
                     </div>
                 </main>

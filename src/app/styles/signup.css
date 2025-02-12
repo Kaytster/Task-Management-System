@@ -22,7 +22,8 @@ form {
 
     border-style: solid;
     border-width: 2px;
-    height: 650px;
+    border-color: #FE107E;
+    height: 720px;
     width:600px;
     background-color: whitesmoke;
 }
@@ -38,6 +39,7 @@ label {
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
     padding-left: 10px;
+    color:#610731;
 }
 
 input {
@@ -48,12 +50,25 @@ input {
 }
 
 button {
-   font-size: 20px;
+   /* font-size: 20px;
    margin-bottom: 80px;
    width: 200px;
    align-self: center;
    height: 100px;
-   font-family: Arial, Helvetica, sans-serif;
+   font-family: Arial, Helvetica, sans-serif; */
+   align-self: center;
+   padding-top: 10px;
+    width: 300px;
+    height: 80px;;
+    border-width: 5px;
+    border-radius: 10px;
+    border-color: #FE107E;
+    border-style: solid;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 32px;
+    text-align: center;
+    color: #FE107E;
+    background-color: #FAB4D5;
 }
 
 p {

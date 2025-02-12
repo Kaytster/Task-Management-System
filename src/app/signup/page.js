@@ -13,26 +13,26 @@ export default function Signup() {
                     <form>
                         <h2>Signup</h2>
                         <div class="mb-3">
-                            <label class="form-label">First Name</label>
+                            <label class="form-label"><b>First Name</b></label>
                             <input type="fname" class="form-control" id="InputFname"/>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Last Name</label>
+                            <label class="form-label"><b>Last Name</b></label>
                             <input type="lname" class="form-control" id="InputLname"/>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Email address</label>
+                            <label class="form-label"><b>Email address</b></label>
                             <input type="email" class="form-control" id="InputEmail"/>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Username</label>
+                            <label class="form-label"><b>Username</b></label>
                             <input type="username" class="form-control" id="InputUsername"/>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Password</label>
+                            <label class="form-label"><b>Password</b></label>
                             <input type="password" class="form-control" id="InputPassword"/>
                         </div>
-                        <button type="submit" class="btn btn-primary">Create Account</button>
+                        <button type="submit" class="btn-primary"><b>Create Account</b></button>
                     </form>
                     </div>
                 </main>
