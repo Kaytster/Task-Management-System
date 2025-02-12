@@ -25,6 +25,9 @@ export default function Home() {
               <p>Login</p>
             </div>
           </section>
+          <section className="examples">
+
+          </section>
         </main>
       </body>
     </html>
