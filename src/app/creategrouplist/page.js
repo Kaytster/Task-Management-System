@@ -1,9 +1,9 @@
 import Header from "../header";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
-import '../styles/createtask.css'
+import '../styles/creategrouplist.css'
 
-export default function CreateTask() {
+export default function CreateGroupList() {
     return (
       <html>
         <head>
@@ -15,14 +15,10 @@ export default function CreateTask() {
             <br />
             <div id='form'>
                 <form>
-                    <h2>Create a Task </h2>
+                    <h2>Create a Task List</h2>
                     <div class="mb-3">
                         <label class="form-label"><b>Name</b></label>
-                        <input type="taskname" class="form-control" id="InputTaskName"/>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label"><b>Content</b></label>
-                        <input type="taskcontent" class="form-control" id="InputTaskContent"/>
+                        <input type="listname" class="form-control" id="InputListName"/>
                     </div>
                     <button type="submit" class="btn-primary">Create</button> 
                 </form>

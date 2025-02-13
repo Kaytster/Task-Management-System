@@ -1,9 +1,9 @@
 import Header from "../header";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
-import '../styles/createtask.css'
+import '../styles/creategrouptask.css'
 
-export default function CreateTask() {
+export default function CreateGroupTask() {
     return (
       <html>
         <head>
