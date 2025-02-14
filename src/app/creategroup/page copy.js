@@ -15,7 +15,7 @@ export default function CreateList() {
             <br />
             <div id='form'>
                 <form>
-                    <h2>Create a Group</h2>
+                    <h2>Create a Task List</h2>
                     <div class="mb-3">
                         <label class="form-label"><b>Name</b></label>
                         <input type="listname" class="form-control" id="InputListName"/>
