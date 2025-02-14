@@ -6,6 +6,9 @@ import '../globals.css';
 import '../styles/tasklists.css'
 
 export default function TaskLists() {
+  const Users = async () => {
+    const user = await fetchUsers();
+
     return (
       <html>
         <head>
@@ -74,5 +77,6 @@ export default function TaskLists() {
         </body>
       </html>
     );
-  }
+  };
+}
   
