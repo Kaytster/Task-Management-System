@@ -1,0 +1,33 @@
+.row > .col {
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #FE107E;
+    margin: 10px;   
+    height:auto;
+    display: flexbox;
+   }
+   
+   h1 {
+       font-family: Arial, Helvetica, sans-serif;
+       color: #FE107E;
+   }
+   
+   button {
+       align-self: flex-start;
+       margin-top: 50px;
+       width: 200px;
+       height: 50px;;
+       border-width: 5px;
+       border-radius: 10px;
+       border-color: #FE107E;
+       border-style: solid;
+       font-family: Arial, Helvetica, sans-serif;
+       font-size: 32px;
+       text-align: center;
+       color: #FE107E;
+       background-color: #FAB4D5;
+   }
+
+#user {
+    display: flex;
+}
