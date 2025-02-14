@@ -1,3 +1,5 @@
+import { fetchUsers } from "../lib/db.js";
+
 import Header from "../header";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
@@ -59,6 +61,13 @@ export default function TaskLists() {
               </div>
               <div className="col">
                 <h1>My Task List</h1>
+                {user.map((user, index) => (
+                  <tr key={index}>
+                  <td>{user.User_ID}</td>
+                  <td>{film.User_Fname}</td>
+                  <td>{film.User_Lname}</td>
+                  </tr>
+                ))}
               </div>
             </div>
           </main>
