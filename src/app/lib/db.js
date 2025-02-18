@@ -2,15 +2,15 @@ import mysql from "mysql2/promise";
 
 // connect to the database
 const connection = await mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_SCHEMA,
+    host: 'localhost',
+    user: 'root',
+    password: 'kes12359',
+    database: 'task_management_system',
   });
 
-  const fetchUsers = async () => {
+  const fetchAccounts = async () => {
     try {
-      const query = "select * from user"; 
+      const query = "select * from account"; 
       const [rows] = await connection.execute(query); 
       return rows;
     } catch (error) {
@@ -19,4 +19,4 @@ const connection = await mysql.createConnection({
     }
   };
 
-  export { fetchUsers };
+  export { fetchAccounts };
