@@ -81,7 +81,7 @@
 // }
   
 import { fetchAccounts } from "../lib/db.js";
-import Header from "../header";
+import Header from "../components/header.js";
 import 'bootstrap/dist/css/bootstrap.css';
 import '../globals.css';
 import '../styles/tasklists.css';

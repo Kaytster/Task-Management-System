@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Header from "../header";
+import Header from "../components/header";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
 import '../styles/groups.css'

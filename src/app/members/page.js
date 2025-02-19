@@ -1,4 +1,4 @@
-import Header from "../header";
+import Header from "../components/header";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
 import '../styles/members.css'

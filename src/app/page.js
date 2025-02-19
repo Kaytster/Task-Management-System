@@ -1,13 +1,14 @@
-import Header from "./header";
+'use client'
+import Header from "./components/header";
 import 'bootstrap/dist/css/bootstrap.css'
 import './globals.css';
 import './styles/landing.css';
 
+  
+
 export default function Home() {
   return (
     <html>
-      <head>
-      </head>
       <body>
         <Header />
         <main>
@@ -20,9 +21,9 @@ export default function Home() {
             <p>With a Group Admin account, you can create groups for maximum collaboration.</p>
             <p>To get started:</p>
             <div id="introbuttons">
-              <p>Sign Up</p>
+              <button>Sign Up</button>
               <p id="brk"></p>
-              <p>Login</p>
+              <button>Login</button>
             </div>
           </section>
           <section className="examples">

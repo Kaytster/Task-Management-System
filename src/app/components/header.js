@@ -1,20 +1,23 @@
+'use client'
 import Link from 'next/link';
 import 'bootstrap/dist/css/bootstrap.css'
-import './globals.css';
+import { usePathname } from 'next/navigation';
+import '../globals.css';
 const Header = () => {
+  const pathname = usePathname();
     return (
         <ul class="nav">
           <li className='logo'>
             <img></img>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" href="/tasklists" aria-current="Tasks">My Task Lists</Link>
+            <Link className="nav-link" href="/tasklists" aria-current={pathname === '/tasklists' ? 'page' : undefined}>My Task Lists</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" href="/groups" aria-current="Groups">My Groups</Link>
+            <Link className="nav-link" href="/groups" aria-current={pathname === '/groups' ? 'page' : undefined}>My Groups</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" href="/create" aria-current="Create">Create</Link>
+            <Link className="nav-link" href="/create" aria-current={pathname === '/create' ? 'page' : undefined}>Create</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" href="#">Account</Link>

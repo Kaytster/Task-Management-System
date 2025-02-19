@@ -19,6 +19,13 @@ body{
 .nav-item > .nav-link {
   color: #FAB4D5;
 }
+
+.nav-link[aria-current="page"] {
+  font-weight: bold;
+  background-color: #46052389; /* Change this to your desired color */
+}
+
+
 /* .nav-item > .nav-link[aria-current] {
   background-color: #48062472;
 } */
