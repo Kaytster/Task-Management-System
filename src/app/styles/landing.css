@@ -22,7 +22,7 @@
     padding-right: 50px;
     display: inline-flex;
   }
-  .intro > #introbuttons > button {
+  .intro > #introbuttons > Link > button {
     padding-top: 10px;
     width: 200px;
     height: 80px;;

@@ -3,10 +3,12 @@ import Header from "./components/header";
 import 'bootstrap/dist/css/bootstrap.css'
 import './globals.css';
 import './styles/landing.css';
+import Link from "next/link";
 
   
 
 export default function Home() {
+
   return (
     <html>
       <body>
@@ -21,9 +23,13 @@ export default function Home() {
             <p>With a Group Admin account, you can create groups for maximum collaboration.</p>
             <p>To get started:</p>
             <div id="introbuttons">
+            <Link href="/signup">
               <button>Sign Up</button>
+            </Link>
               <p id="brk"></p>
+            <Link href="/login">
               <button>Login</button>
+            </Link>
             </div>
           </section>
           <section className="examples">

@@ -92,7 +92,7 @@ export const metadata = {
 };
 
 const TaskLists = async () => {
-  const users = await fetchAccounts();
+  const account = await fetchAccounts();
 
   return (
     <div>
@@ -147,7 +147,7 @@ const TaskLists = async () => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((account, index) => (
+                {account.map((account, index) => (
                   <tr key={index}>
                     <td>{account.Account_ID}</td>
                     <td>{account.Account_Username}</td>

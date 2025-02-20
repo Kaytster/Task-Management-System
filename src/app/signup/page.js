@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
 import '../styles/signup.css';
+import Link from 'next/link';
 
 
 export default function Signup() {
@@ -32,7 +33,9 @@ export default function Signup() {
                             <label class="form-label"><b>Password</b></label>
                             <input type="password" class="form-control" id="InputPassword"/>
                         </div>
-                        <button type="submit" class="btn-primary"><b>Create Account</b></button>
+                        <Link href="/dashboard">
+                            <button type="submit" class="btn-primary"><b>Create Account</b></button>
+                        </Link>
                     </form>
                     </div>
                 </main>
