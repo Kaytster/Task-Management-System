@@ -1,3 +1,4 @@
+//This function is used to update the passwords that are currently stored in the database
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcrypt';
 

@@ -1,9 +1,9 @@
-// src/app/api/route.js
-import { verifyUserCredentials } from '../lib/db'; // Adjust the path as needed
+// the api to check against the database
+import { verifyUserCredentials } from '../lib/db'; 
 
 export async function POST(request) {
   console.log('API handler invoked');
-  const { username, password } = await request.json(); // Get data from request body
+  const { username, password } = await request.json(); 
   console.log('Received request:', { username, password });
 
   try {

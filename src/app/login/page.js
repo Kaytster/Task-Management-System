@@ -4,7 +4,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../globals.css';
 import '../styles/login.css';
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Use next/navigation for App Router
+import { useRouter } from 'next/navigation'; 
+
+//Validation to make sure the user has entered information
 
 const Login = () => {
     const router = useRouter();
@@ -14,14 +16,14 @@ const Login = () => {
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
-        console.log('Validating form'); // Log useEffect
+        console.log('Validating form'); 
         validateForm();
     }, [username, password]);
 
     // Validate form
     const validateForm = () => {
         let errors = {};
-        console.log('Validating username and password'); // Log validateForm
+        console.log('Validating username and password'); 
 
         if (!username) {
             errors.username = 'Username is required.';
@@ -35,33 +37,33 @@ const Login = () => {
 
         setErrors(errors);
         setIsFormValid(Object.keys(errors).length === 0);
-        console.log('Validation complete', errors, isFormValid); // Log validation result
+        console.log('Validation complete', errors, isFormValid); 
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted'); // Log handleSubmit start
+        console.log('Form submitted'); 
         validateForm();
 
         if (isFormValid) {
             try {
-                console.log('Sending login request'); // Log sending request
-                const response = await fetch('/api', {
+                console.log('Sending login request'); 
+                const response = await fetch('/api', { //api that validates against the database
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, password }),
                 });
 
                 const result = await response.json();
-                console.log('API response:', result); // Log API response
+                console.log('API response:', result); 
 
                 if (response.ok) {
                     console.log('Login successful!');
-                    // Navigate to another page
+                    // Navigate to another page when logged in
                     router.push('/tasklists');
                 } else {
                     setErrors({ form: result.message });
-                    console.log('Login failed:', result.message); // Log failure
+                    console.log('Login failed:', result.message); 
                 }
             } catch (error) {
                 console.error('Error during login:', error);

@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise';
-import bcrypt from 'bcrypt'; // Import bcrypt
+import bcrypt from 'bcrypt'; // bcrypt is used to hash the passwords in the database
 
 const connection = await mysql.createConnection({
   host: 'localhost',
@@ -15,7 +15,7 @@ const fetchAccounts = async () => {
     return rows;
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to fetch data."); // Moved inside catch
+    throw new Error("Failed to fetch data."); 
   }
 };
 
@@ -29,7 +29,7 @@ const verifyUserCredentials = async (username, password) => {
     }
 
     const user = rows[0];
-    const passwordMatch = await bcrypt.compare(password, user.Account_Password); // Compare hashed passwords
+    const passwordMatch = await bcrypt.compare(password, user.Account_Password); // Compare the hashed passwords
 
     return passwordMatch;
   } catch (error) {
