@@ -38,7 +38,7 @@ const verifyUserCredentials = async (username, password) => {
   }
 };
 
-const verifyAccountCreation = async (firstname, lastname, email, username, password) => {
+const verifyAccountCreation = async (firstname, lastname, email, username, password, type) => {
   try {
       // Start a transaction
       await connection.beginTransaction();
@@ -49,7 +49,7 @@ const verifyAccountCreation = async (firstname, lastname, email, username, passw
 
       // Insert into the 'account' table
       const query2 = 'INSERT INTO account (Account_Email, Account_Username, Account_Password, Account_Type) VALUES (?, ?, ?, ?)';
-      await connection.execute(query2, [email, username, password]);
+      await connection.execute(query2, [email, username, password, type]);
 
       // Commit the transaction
       await connection.commit();

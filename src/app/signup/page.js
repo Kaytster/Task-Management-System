@@ -58,9 +58,19 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         console.log("handleSubmit is running!"); // Add this line
         e.preventDefault();
-        console.log("Data being sent:", { firstname, lastname, email, username, password }); // Add this line
+        console.log("Data being sent:", { firstname, lastname, email, username, password, type }); // Add this line
         console.log('Form submitted');
         validateForm();
+
+        // Get checkbox values
+    const standardChecked = document.getElementById("standardcheck").checked;
+    const adminChecked = document.getElementById("admincheck").checked;
+
+    // Set account type
+    let accountType = "Standard"; // Default to Standard
+    if (adminChecked) {
+        accountType = "Group Admin";
+    }
     
         if (isFormValid) {
             try {
@@ -74,6 +84,7 @@ const Signup = () => {
                         email,
                         username,
                         password,
+                        type,
                     }),
                 })
                     .then((response) => {
@@ -177,6 +188,16 @@ const Signup = () => {
                             {errors.password && <p style={{color: 'red'}}>{errors.password}</p>}
                         </div>
                         {errors.form && <p style={{color: 'red'}}>{errors.form}</p>}
+
+                        <div className="mb-3">
+                            <label className="form-label"><b>Account Type</b></label>
+                            <p>Standard</p>
+                            <input id='standardcheck' type="checkbox" aria-label="Checkbox for following text input" />
+                            <p>Group Admin</p>
+                            <input id='admincheck' type="checkbox" aria-label="Checkbox for following text input" />
+                            {errors.password && <p style={{color: 'red'}}>{errors.password}</p>}
+                        </div>
+
                         <button 
                             type="submit" 
                             className="btn-primary"
