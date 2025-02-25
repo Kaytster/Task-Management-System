@@ -38,4 +38,33 @@ const verifyUserCredentials = async (username, password) => {
   }
 };
 
-export { fetchAccounts, verifyUserCredentials };
+const verifyAccountCreation = async (firstname, lastname, email, username, password) => {
+  try {
+      // Start a transaction
+      await connection.beginTransaction();
+
+      // Insert into the 'user' table
+      const query1 = 'INSERT INTO user (User_Fname, User_Lname) VALUES (?, ?)';
+      await connection.execute(query1, [firstname, lastname]);
+
+      // Insert into the 'account' table
+      const query2 = 'INSERT INTO account (Account_Email, Account_Username, Account_Password, Account_Type) VALUES (?, ?, ?, ?)';
+      await connection.execute(query2, [email, username, password]);
+
+      // Commit the transaction
+      await connection.commit();
+
+      console.log("Database inserts successful");
+      return true;
+
+  } catch (error) {
+      // Rollback the transaction if any error occurs
+      console.log("Rolling back transaction due to error:", error); // Add this line
+      await connection.rollback();
+
+      console.error('Database Error:', error);
+      return false;
+  }
+};
+
+export { fetchAccounts, verifyUserCredentials, verifyAccountCreation };
