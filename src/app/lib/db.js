@@ -1,4 +1,5 @@
 import mysql from 'mysql2/promise';
+import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt'; // bcrypt is used to hash the passwords in the database
 
 const connection = await mysql.createConnection({
@@ -48,8 +49,9 @@ const verifyAccountCreation = async (firstname, lastname, email, username, passw
       await connection.execute(query1, [firstname, lastname]);
 
       // Insert into the 'account' table
-      const query2 = 'INSERT INTO account (Account_Email, Account_Username, Account_Password, Account_Type) VALUES (?, ?, ?, ?)';
-      await connection.execute(query2, [email, username, password, type]);
+      const accountId = uuidv4();
+      const query2 = 'INSERT INTO account (Account_ID Account_Email, Account_Username, Account_Password, Account_Type) VALUES (?, ?, ?, ?)';
+      await connection.execute(query2, [accountID, email, username, password, type]);
 
       // Commit the transaction
       await connection.commit();
@@ -67,4 +69,20 @@ const verifyAccountCreation = async (firstname, lastname, email, username, passw
   }
 };
 
-export { fetchAccounts, verifyUserCredentials, verifyAccountCreation };
+const createTaskList = async (listID, listName, listStatus, userID ) => {
+  try{
+        const query = 'INSERT INTO individual_list (IndList_Name) VALUES (?)';
+        await connection.execute(query, [/*listID,*/ listName/*, listStatus, userID*/]);
+        console.log("Database inserts successful");
+        return true;
+  } catch (error) {
+    // Rollback the transaction if any error occurs
+    console.log("Rolling back transaction due to error:", error); // Add this line
+    await connection.rollback();
+
+    console.error('Database Error:', error);
+    return false;
+}
+};
+
+export { fetchAccounts, verifyUserCredentials, verifyAccountCreation, createTaskList };

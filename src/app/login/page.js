@@ -103,12 +103,7 @@ const Login = () => {
                         {errors.password && <p style={{color: 'red'}}>{errors.password}</p>}
                     </div>
                     {errors.form && <p style={{color: 'red'}}>{errors.form}</p>}
-                    <button 
-                        type="submit" 
-                        className="btn-primary" 
-                    >
-                        Login
-                    </button>
+                    <button type="submit" className="btn-primary" > Login </button>
                 </form>
             </div>
         </main>

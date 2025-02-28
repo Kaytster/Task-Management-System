@@ -15,6 +15,7 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [type, setType] = useState('');
     const [errors, setErrors] = useState({});
     const [isFormValid, setIsFormValid] = useState(false);
 
@@ -66,10 +67,11 @@ const Signup = () => {
     const standardChecked = document.getElementById("standardcheck").checked;
     const adminChecked = document.getElementById("admincheck").checked;
 
-    // Set account type
-    let accountType = "Standard"; // Default to Standard
+    // Set account type AND update the type state
     if (adminChecked) {
-        accountType = "Group Admin";
+        setType("Group Admin"); // Update type state here!
+    } else {
+        setType("Standard"); // Update type state here!
     }
     
         if (isFormValid) {

@@ -1,4 +1,5 @@
 import Header from "../components/header";
+import Link from "next/link";
 import '../styles/create.css'
 import '../globals.css';
 
@@ -14,9 +15,13 @@ export default function Create() {
             <br/>
             <h1>What do you want to create?</h1>
             <div id="createbuttons">
-                <p>Task List</p>
+              <Link href={"/createlist"}>
+                <button>Task List</button>
+              </Link>
                 <p id="brk"></p>
-                <p>Group</p>
+              <Link href={"/creategroup"}>
+                <button>Group</button>
+              </Link>
             </div>
           </main>
         </body>
