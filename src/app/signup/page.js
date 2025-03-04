@@ -95,7 +95,7 @@ const Signup = () => {
                                 throw new Error(errorData.message || 'Something went wrong');
                             });
                         }
-                        return response.json();
+                        // return response.json();
                     })
                     .then((data) => {
                         console.log('API response:', data);

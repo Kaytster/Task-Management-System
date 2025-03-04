@@ -3,7 +3,7 @@ import { verifyAccountCreation } from '../../lib/db'; // Your database function
 
 export async function POST(request) {
     console.log('API register handler invoked');
-    const { firstname, lastname, email, username, password } = await request.json();
+    const { firstname, lastname, email, username, password, type} = await request.json();
     console.log('Received registration request:', { firstname, lastname, email, username });
 
     try {
@@ -16,10 +16,11 @@ export async function POST(request) {
             email,
             username,
             hashedPassword,
+            type,
         });
 
         // Create the user in the database
-        const success = await verifyAccountCreation(firstname, lastname, email, username, hashedPassword);
+        const success = await verifyAccountCreation(firstname, lastname, email, username, hashedPassword, type);
         console.log('verifyAccountCreation returned:', success);
 
         if (success) {
