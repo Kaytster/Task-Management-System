@@ -60,7 +60,7 @@ const Login = () => {
                 if (response.ok) {
                     console.log('Login successful!');
                     // Navigate to another page when logged in
-                    router.push('/tasklists');
+                    router.push('/dashboard');
                 } else {
                     setErrors({ form: result.message });
                     console.log('Login failed:', result.message); 

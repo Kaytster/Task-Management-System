@@ -8,7 +8,9 @@ const Header = () => {
     return (
         <ul class="nav">
           <li className='logo'>
-            <img></img>
+            <Link className="nav-link" href="/dashboard" aria-current={pathname === '/dashboard' ? 'page' : undefined}>
+              <img src='\jellyfish.png' width={40} height={40} />
+            </Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" href="/tasklists" aria-current={pathname === '/tasklists' ? 'page' : undefined}>My Task Lists</Link>
