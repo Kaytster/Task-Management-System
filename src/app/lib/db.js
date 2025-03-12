@@ -1,6 +1,7 @@
 import mysql from 'mysql2/promise';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
+import { connection } from 'next/server';
 
 const pool = mysql.createPool({
   host: 'localhost',
@@ -11,6 +12,18 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0,
 });
+
+
+const showData = async () => {
+  try{
+    const query = "select * from account";
+    const [rows] = await connection.execute(query);
+    return rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch data.");
+  }
+};
 
 async function execute(query, params) {
   let connection;
@@ -133,6 +146,7 @@ const createTaskList = async (listID, listName, listStatus, userID) => {
 };
 
 export {
+  showData,
   fetchAccounts,
   verifyUserCredentials,
   verifyAccountCreation,

@@ -11,7 +11,15 @@ export default function Home() {
         <body>
           <Header />
           <main>
-            
+          <br/>
+          <br/>
+          <div className="row">
+            <div className="col">
+            <h1>Recent List</h1>
+                
+            </div>
+          </div>
+        
           </main>
         </body>
       </html>

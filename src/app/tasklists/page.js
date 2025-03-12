@@ -80,7 +80,7 @@
 //   };
 // }
   
-import { fetchAccounts } from "../lib/db.js";
+import { showData } from "../lib/db.js";
 import Header from "../components/header.js";
 import 'bootstrap/dist/css/bootstrap.css';
 import '../globals.css';
@@ -92,7 +92,7 @@ export const metadata = {
 };
 
 const TaskLists = async () => {
-  const account = await fetchAccounts();
+  const account = await showData();
 
   return (
     <div>
