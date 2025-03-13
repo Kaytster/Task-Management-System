@@ -15,13 +15,13 @@ const pool = mysql.createPool({
 
 
 const showData = async () => {
-  try{
-    const query = "select * from account";
-    const [rows] = await connection.execute(query);
-    return rows;
+  try {
+      const query = "SELECT * FROM account"; // Use SELECT for consistency
+      const [rows] = await pool.execute(query); // Use pool.execute
+      return rows;
   } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch data.");
+      console.error("Database Error:", error);
+      throw new Error("Failed to fetch data.");
   }
 };
 

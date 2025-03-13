@@ -11,3 +11,8 @@
        font-family: Arial, Helvetica, sans-serif;
        color: #FE107E;
    }
+
+.row > .col > table > tbody > div > #row > #name {
+    font-size: 20px;
+    color: #FE107E;
+}
