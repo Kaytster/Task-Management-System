@@ -16,25 +16,33 @@ export default function Home() {
         <main>
           <br/>
           <br/>
-          <section className="intro">
-            <h1>Welcome to Jello</h1>
-            <p>With our Task Manager, you can easily keep your tasks organized with a list 
-            and share your tasks with others to work together.</p>
-            <p>With a Group Admin account, you can create groups for maximum collaboration.</p>
-            <p>To get started:</p>
-            <div id="introbuttons">
-            <Link href="/signup">
-              <button>Sign Up</button>
-            </Link>
-              <p id="brk"></p>
-            <Link href="/login">
-              <button>Login</button>
-            </Link>
-            </div>
-          </section>
-          <section className="examples">
+            <div className="row">
+              <section className="card" style={{marginRight: '80px'}}>
+                <div className="card-body">
+                  <div className="card-title">
+                    <h1>Welcome to Jello</h1>
+                  </div>
+                  <div className="card-value">
+                    <p>With our Task Manager, you can easily keep your tasks organized with a list 
+                    and share your tasks with others to work together.</p>
+                    <p>With a Group Admin account, you can create groups for maximum collaboration.</p>
+                    <p>To get started:</p>
+                  </div>
+                  <div id="introbuttons">
+                  <Link href="/signup">
+                    <button type="submit" className="signup">Sign Up</button>
+                  </Link>
+                    <p id="brk"></p>
+                  <Link href="/login">
+                    <button type="submit" className="login">Login</button>
+                  </Link>
+                  </div>
+                </div>
+              </section>
+              <section className="card">
 
-          </section>
+              </section>
+            </div>
         </main>
       </body>
     </html>
