@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../globals.css';
 import '../styles/login.css';
+import { loginAction } from './loginAction'; // Import the server action!
+import { useActionState } from 'react';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; 
 
-//Validation to make sure the user has entered information
-
-const Login = () => {
+export default function Login() {
     const router = useRouter();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -60,7 +60,7 @@ const Login = () => {
                 if (response.ok) {
                     console.log('Login successful!');
                     // Navigate to another page when logged in
-                    router.push('/dashboard');
+                    router.push('/tasklists');
                 } else {
                     setErrors({ form: result.message });
                     console.log('Login failed:', result.message); 
@@ -82,32 +82,30 @@ const Login = () => {
                     <h2>Login</h2>
                     <div className="mb-3">
                         <label className="form-label"><b>Username</b></label>
-                        <input 
+                        <input
                             type="text" 
                             className="form-control" 
                             id="InputUsername" 
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
-                        {errors.username && <p style={{color: 'red'}}>{errors.username}</p>}
+                        {errors.username && <p style={{ color: 'red' }}>{errors.username}</p>}
                     </div>
                     <div className="mb-3">
                         <label className="form-label"><b>Password</b></label>
-                        <input 
-                            type="password" 
-                            className="form-control" 
-                            id="InputPassword" 
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                        <input
+                           type="password" 
+                           className="form-control" 
+                           id="InputPassword" 
+                           value={password}
+                           onChange={(e) => setPassword(e.target.value)}
                         />
-                        {errors.password && <p style={{color: 'red'}}>{errors.password}</p>}
+                        {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
                     </div>
-                    {errors.form && <p style={{color: 'red'}}>{errors.form}</p>}
-                    <button type="submit" className="btn-primary" > Login </button>
+                    {errors.form && <p style={{ color: 'red' }}>{errors.form}</p>}
+                    <button type="submit" className="btn-primary"> Login </button>
                 </form>
             </div>
         </main>
     );
 };
-
-export default Login;

@@ -191,12 +191,20 @@ const Signup = () => {
                         </div>
                         {errors.form && <p style={{color: 'red'}}>{errors.form}</p>}
 
-                        <div className="mb-3">
+                        <div className="mb-3" >
                             <label className="form-label"><b>Account Type</b></label>
-                            <p>Standard</p>
-                            <input id='standardcheck' type="checkbox" aria-label="Checkbox for following text input" />
-                            <p>Group Admin</p>
-                            <input id='admincheck' type="checkbox" aria-label="Checkbox for following text input" />
+                            <br />
+                            <div className='check' style={{display: 'inline-flex'}}>
+                                <div id='standard'>
+                                    <p>Standard</p>
+                                    <input id='standardcheck' type="checkbox" aria-label="Checkbox for following text input" />
+                                </div>
+                                <div className='brk'></div>
+                                <div id='admin'>
+                                    <p>Group Admin</p>
+                                    <input id='admincheck' type="checkbox" aria-label="Checkbox for following text input" />
+                                </div>
+                            </div>
                             {errors.password && <p style={{color: 'red'}}>{errors.password}</p>}
                         </div>
 
