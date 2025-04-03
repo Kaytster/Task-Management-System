@@ -112,7 +112,7 @@ const Signup = () => {
                 if (response.ok) {
                     console.log('Registration successful!');
                     // Navigate to a success page or login page
-                    router.push('/login'); // or a success page
+                    router.push('/dashboard'); // or a success page
                 } else {
                     setErrors({ form: result.message });
                     console.log('Registration failed:', result.message);

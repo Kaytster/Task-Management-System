@@ -30,6 +30,8 @@ async function execute(query, params) {
 
   try {
     connection = await pool.getConnection();
+    console.log("Execute function called with query:", query); // Add this
+    console.log("Execute function called with params:", params); // Add this
 
     if (
       query === 'START TRANSACTION' ||
@@ -39,6 +41,7 @@ async function execute(query, params) {
       await connection.query(query);
     } else {
       const [rows, fields] = await connection.execute(query, params); // Include fields
+      console.log("Execute function rows:", rows); // add this.
       return [rows, fields]; // Return an array with rows and fields
     }
   } catch (error) {
@@ -63,20 +66,66 @@ const fetchAccounts = async () => {
 
 const verifyUserCredentials = async (username, password) => {
   try {
-    const query = 'SELECT * FROM account WHERE Account_Username = ?';
+    const query = 'SELECT Account_Password FROM account WHERE Account_Username = ?';
     const [rows] = await execute(query, [username]);
 
     if (rows.length === 0) {
-      return false;
+      return false; // Account not found
     }
 
     const user = rows[0];
-    return await bcrypt.compare(password, user.Account_Password);
+    return await bcrypt.compare(password, user.Account_Password); // Return true or false
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to verify user credentials.');
   }
 };
+
+
+async function handleLogin(username, password) {
+  try {
+      console.log("handleLogin called with:", username, password);
+      const accountQuery = 'SELECT Account_ID, Account_Password FROM account WHERE Account_Username = ?';
+      const [accountRows] = await execute(accountQuery, [username]);
+
+      if (accountRows && accountRows.length > 0) {
+          const account = accountRows[0];
+          const passwordMatch = await bcrypt.compare(password, account.Account_Password);
+
+          if (passwordMatch) {
+              const accountId = account.Account_ID;
+              console.log('Account ID:', accountId);
+
+              const userQuery = 'SELECT User_ID FROM user WHERE Account_ID = ?';
+              const [userRows] = await execute(userQuery, [accountId]);
+
+              if (userRows && userRows.length > 0) {
+                  const userId = userRows[0].User_ID;
+                  console.log('User ID:', userId);
+
+                  if (userId) {
+                      // Return the userId
+                      return userId;
+                  }
+              } else {
+                  console.log('User not found for this account.');
+                  return null;
+              }
+          } else {
+              console.log('Password does not match.');
+              return null;
+          }
+      } else {
+          console.log('Account not found.');
+          return null;
+      }
+  } catch (error) {
+      console.error('Database Error:', error);
+      console.log('Login failed or error occurred.');
+      return null;
+  }
+}
+
 
 const verifyAccountCreation = async (
   firstname,
@@ -151,4 +200,5 @@ export {
   verifyUserCredentials,
   verifyAccountCreation,
   createTaskList,
+  handleLogin
 };

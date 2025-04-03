@@ -70,4 +70,65 @@ const recentListTasks = async (IndList_ID) => {
   }
 };
 
-  export {recentList, recentListTasks};
+//The most recent group
+// g = group
+// gm = group members
+const recentGroup = async (userId) => {
+  try {
+      const query = `
+          SELECT g.* FROM \`group\` g
+          JOIN group_members gm ON g.Group_ID = gm.Group_ID
+          WHERE gm.User_ID = ?
+          ORDER BY g.Group_ID DESC
+          LIMIT 1
+      `;
+      console.log('SQL Query:', query);
+      console.log('User ID for query:', userId);
+      const [rows] = await pool.execute(query, [userId]);
+      console.log('Database rows:', rows);
+      if (rows.length > 0) {
+          return rows[0];
+      } else {
+          return null;
+      }
+  } catch (error) {
+      console.error('Database Error:', error);
+      throw new Error('Failed to fetch data.');
+  }
+};
+
+const getGroupMembers = async (groupId) => {
+  try {
+      const query = `
+          SELECT a.Account_Username
+          FROM account a
+          JOIN user u ON a.Account_ID = u.Account_ID 
+          JOIN group_members gm ON u.User_ID = gm.User_ID 
+          WHERE gm.Group_ID = ?
+      `;
+      const [rows] = await pool.execute(query, [groupId]);
+      return rows;
+  } catch (error) {
+      console.error('Database Error:', error);
+      throw new Error('Failed to fetch data.');
+  }
+};
+
+const getGroupListsAndTasks = async (groupId) => {
+  try {
+      const query = `
+          SELECT gl.*, gt.*
+          FROM group_list gl
+          LEFT JOIN group_link glk ON gl.GrpList_ID = glk.GrpList_ID
+          LEFT JOIN group_task gt ON glk.GrpTask_ID = gt.GrpTask_ID
+          WHERE gl.Group_ID = ?
+      `;
+      const [rows] = await pool.execute(query, [groupId]);
+      return rows;
+  } catch (error) {
+      console.error('Database Error:', error);
+      throw new Error('Failed to fetch data.');
+  }
+};
+
+  export {recentList, recentListTasks, recentGroup, getGroupMembers, getGroupListsAndTasks};
