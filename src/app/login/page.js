@@ -1,5 +1,5 @@
 'use client';
-
+import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../globals.css';
 import '../styles/login.css';
@@ -59,6 +59,12 @@ export default function Login() {
 
                 if (response.ok) {
                     console.log('Login successful!');
+
+                    if (result.userId) { // Check if userId is present in the response
+                        Cookies.set('userId', String(result.userId), { expires: 7 }); // Corrected line!
+                        console.log('User ID cookie set:', result.userId);
+                    }
+                    
                     // Navigate to another page when logged in
                     router.push('/tasklists');
                 } else {
