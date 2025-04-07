@@ -19,13 +19,13 @@ export default function Create() {
                 <h1>What do you want to create?</h1>
               </div>
             </div>
-            <div id="createbuttons">
+            <div className="card-value">
               <Link href={"/createlist"}>
-                <button>Task List</button>
+                <button type="submit" className="list">Task List</button>
               </Link>
                 <p id="brk"></p>
               <Link href={"/creategroup"}>
-                <button>Group</button>
+                <button type="submit" className="group">Group</button>
               </Link>
             </div>
           </main>
