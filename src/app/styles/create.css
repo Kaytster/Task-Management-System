@@ -2,38 +2,47 @@
     background-color: #6204309a;
 }
 
-main > h1 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 64px;
-    text-align: center;
-    border-style: solid;
-    border-color: #FE107E;
-    color: #FE107E;
-    padding: 50px;
-    border-radius: 20px;
-    background-color: #FAB4D5;
+:root {
+  --colour1: #FE107E;
+  --colour2: rgb(247, 110, 245);
+  --shadow: 0 10px 30px rgba(0, 103, 177, 0.15);
+  --radius: 16px;
+  --transition: all 0.3s ease;
+  --gradient: linear-gradient(135deg, var(--colour1), var(--colour2));
+}
+
+.card {
+  width: 98%;
+  height: fit-content;
+  display: flexbox;
+  border-color: #FE107E;
+  border-width: 2px;
+  border-style: solid;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  margin-left:15px;
+}
+
+.card > .card-title > h1 {
+  font-size: 64px;
+  color: #FAB4D5;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #createbuttons {
     padding-left: 50px;
     padding-right: 50px;
     display: inline-flex;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    width: 100px;
+    height: 50px;
+    border-radius: 50px;
+    background: var(--gradient);
   }
 
-#createbuttons > p {
-    padding-top: 5px;
-    width: 400px;
-    height: 70px;
-    border-width: 5px;
-    border-radius: 10px;
-    border-color: #FE107E;
-    border-style: solid;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 45px;
-    text-align: center;
-    color: #FE107E;
-    background-color: #FAB4D5;
-  }
+
 #createbuttons > #brk {
     border-style: none;
     width: 0px;

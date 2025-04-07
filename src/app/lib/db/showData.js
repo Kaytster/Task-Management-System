@@ -131,4 +131,18 @@ const getGroupListsAndTasks = async (groupId) => {
   }
 };
 
-  export {recentList, recentListTasks, recentGroup, getGroupMembers, getGroupListsAndTasks};
+const showLists = async (userId) => {
+    try {
+      const query = `
+        SELECT * FROM individual_list 
+        WHERE User_ID = ?
+      `;
+      const [rows] = await pool.execute(query, [userId]);
+      return rows;
+    } catch (error) {
+      console.error('Database Error:', error);
+      throw new Error('Failed to fetch lists.');
+    }
+  };
+
+  export {recentList, recentListTasks, recentGroup, getGroupMembers, getGroupListsAndTasks, showLists};

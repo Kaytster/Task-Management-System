@@ -1,5 +1,6 @@
 import Header from "../components/header";
 import Link from "next/link";
+import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/create.css'
 import '../globals.css';
 
@@ -13,7 +14,11 @@ export default function Create() {
           <main>
             <br/>
             <br/>
-            <h1>What do you want to create?</h1>
+            <div className="card">
+              <div className="card-title">
+                <h1>What do you want to create?</h1>
+              </div>
+            </div>
             <div id="createbuttons">
               <Link href={"/createlist"}>
                 <button>Task List</button>
