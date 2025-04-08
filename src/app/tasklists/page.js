@@ -252,6 +252,7 @@ return (
                       <div className="card-title">
                           <h1>{list.IndList_Name}</h1>
                       </div>
+                      
                       <div className="card-body">
                           <table>
                               <tbody>
@@ -268,7 +269,7 @@ return (
                                               </div>
                                           </td>
                                           <td>
-                                          <Link href="/createtask">
+                                          <Link href={`/createtask/${list.IndList_ID}`}>
                                               <button>Edit</button>
                                           </Link>
                                           </td>

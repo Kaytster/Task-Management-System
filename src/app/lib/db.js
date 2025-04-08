@@ -241,6 +241,84 @@ const verifyListCreation = async (
   }
 };
 
+const verifyTaskCreation = async (
+  name,
+  content
+) => {
+  try {
+    await execute('START TRANSACTION');
+
+    try {
+      const insertTaskQuery = `
+        INSERT INTO individual_task (IndTask_Name, IndTask_Content) 
+        VALUES (?, ?)
+      `;
+
+      const [result] = await execute(insertTaskQuery, [
+        name,
+        content
+      ]);
+      console.log('Result from execute:', result);
+
+      console.log('Account insertion result:', result);
+
+      const getTaskIdQuery = 'SELECT LAST_INSERT_ID()';
+      const [taskIdResult] = await execute(getTaskIdQuery);
+      const taskId = taskIdResult[0]['LAST_INSERT_ID()'];
+
+      console.log('Account ID:', taskId);
+
+      const insertUserQuery =
+        'INSERT INTO user (User_Fname, User_Lname, Account_ID) VALUES (?, ?, ?)';
+        const [userResult] = await execute(insertUserQuery, [firstname, lastname, accountId]); // Get the result
+        const userId = userResult.insertId; // Get the generated User_ID
+        console.log('User ID:', userId); // Log the User_ID
+      
+
+      await execute('COMMIT');
+      return true;
+    } catch (error) {
+      console.error('Database error during account creation:', error);
+      await execute('ROLLBACK');
+      return false;
+    }
+  } catch (error) {
+    console.error('Transaction error:', error);
+    return false;
+  }
+};
+
+const createTaskAndLinkToList = async (name, content, status, listId) => {
+  try {
+      await execute('START TRANSACTION');
+
+      try {
+          const insertTaskQuery = `
+              INSERT INTO individual_task (IndTask_Name, IndTask_Content, IndTask_Status)
+              VALUES (?, ?, ?)
+          `;
+          const [taskResult] = await execute(insertTaskQuery, [name, content, status]);
+          const taskId = taskResult.insertId;
+
+          const linkTaskToListQuery = `
+              INSERT INTO Individual_Link (IndList_ID, IndTask_ID)
+              VALUES (?, ?)
+          `;
+          await execute(linkTaskToListQuery, [listId, taskId]);
+
+          await execute('COMMIT');
+          return true;
+      } catch (error) {
+          await execute('ROLLBACK');
+          console.error('Database error during task creation:', error);
+          return false;
+      }
+  } catch (error) {
+      console.error('Transaction error:', error);
+      return false;
+  }
+};
+
 export {
   showData,
   fetchAccounts,
@@ -249,5 +327,7 @@ export {
   createTaskList,
   handleLogin,
   verifyListCreation,
+  verifyTaskCreation,
+  createTaskAndLinkToList,
   execute
 };
