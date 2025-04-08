@@ -45,7 +45,7 @@ export default function Login() {
         console.log('Form submitted'); 
         validateForm();
 
-        if (isFormValid) {
+        if (isFormValid) { 
             try {
                 console.log('Sending login request'); 
                 const response = await fetch('/api', { //api that validates against the database

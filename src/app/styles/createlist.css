@@ -1,3 +1,12 @@
+:root {
+    --colour1: #FE107E;
+    --colour2: rgb(247, 110, 245);
+    --shadow: 0 10px 30px rgba(0, 103, 177, 0.15);
+    --radius: 16px;
+    --transition: all 0.3s ease;
+    --gradient: linear-gradient(135deg, var(--colour1), var(--colour2));
+  }
+
 body{
     background-color: #F7E8EF;
   }
@@ -26,6 +35,7 @@ form {
     height: 400px;
     width:600px;
     background-color: whitesmoke;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 } 
 
 h2 {
@@ -52,17 +62,14 @@ button {
     align-self: center;
     padding-top: 10px;
     padding-bottom: 10px;
-     width: 300px;
-     height: 60px;
-     border-width: 5px;
-     border-radius: 10px;
-     border-color: #FE107E;
-     border-style: solid;
-     font-family: Arial, Helvetica, sans-serif;
-     font-size: 32px;
-     text-align: center;
-     color: #FE107E;
-     background-color: #FAB4D5;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    width: 150px;
+    height: 100px;
+    border-radius: 50px;
+    background: var(--gradient);
+    font-size: 20px;
 }
 
 p {

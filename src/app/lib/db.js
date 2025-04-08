@@ -194,11 +194,60 @@ const createTaskList = async (listID, listName, listStatus, userID) => {
   }
 };
 
+const verifyListCreation = async (
+  name,
+  status
+) => {
+  try {
+    await execute('START TRANSACTION');
+
+    try {
+      const insertListQuery = `
+        INSERT INTO individual_list (IndList_Name, IndList_Status) 
+        VALUES (?, ?)
+      `;
+
+      const [result] = await execute(insertListQuery, [
+        name,
+        status
+      ]);
+      console.log('Result from execute:', result);
+
+      console.log('Account insertion result:', result);
+
+      const getListIdQuery = 'SELECT LAST_INSERT_ID()';
+      const [listIdResult] = await execute(getListIdQuery);
+      const listId = listIdResult[0]['LAST_INSERT_ID()'];
+
+      console.log('Account ID:', listId);
+
+      const insertUserQuery =
+        'INSERT INTO user (User_Fname, User_Lname, Account_ID) VALUES (?, ?, ?)';
+        const [userResult] = await execute(insertUserQuery, [firstname, lastname, accountId]); // Get the result
+        const userId = userResult.insertId; // Get the generated User_ID
+        console.log('User ID:', userId); // Log the User_ID
+      
+
+      await execute('COMMIT');
+      return true;
+    } catch (error) {
+      console.error('Database error during account creation:', error);
+      await execute('ROLLBACK');
+      return false;
+    }
+  } catch (error) {
+    console.error('Transaction error:', error);
+    return false;
+  }
+};
+
 export {
   showData,
   fetchAccounts,
   verifyUserCredentials,
   verifyAccountCreation,
   createTaskList,
-  handleLogin
+  handleLogin,
+  verifyListCreation,
+  execute
 };

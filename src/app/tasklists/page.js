@@ -85,6 +85,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../globals.css';
 import '../styles/tasklists.css';
 import { cookies } from "next/headers";
+import Link from "next/link.js";
 
 async function getUserLists(userId) {
   const lists = await showLists(userId);
@@ -267,7 +268,9 @@ return (
                                               </div>
                                           </td>
                                           <td>
+                                          <Link href="/createtask">
                                               <button>Edit</button>
+                                          </Link>
                                           </td>
                                       </tr>
                                   ))}
