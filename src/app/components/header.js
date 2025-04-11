@@ -22,7 +22,7 @@ const Header = () => {
             <Link className="nav-link" href="/create" aria-current={pathname === '/create' ? 'page' : undefined}>Create</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" href="#">Account</Link>
+            <Link className="nav-link" href="/account">Account</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" href="#">Settings</Link>

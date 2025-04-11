@@ -381,6 +381,92 @@ const addMemberToGroup = async (userId, groupId) => {
   }
 };
 
+
+const createGroupList = async (grplistID, grplistName, grplistStatus, groupId) => {
+  try {
+    const query = 'INSERT INTO group_list (GrpList_Name) VALUES (?)';
+    await execute(query, [grplistName]);
+    console.log('Database inserts successful');
+    return true;
+  } catch (error) {
+    console.log('Rolling back transaction due to error:', error);
+    await execute('ROLLBACK');
+    console.error('Database Error:', error);
+    return false;
+  }
+};
+
+const verifyGrpListCreation = async (
+  grpname,
+  grpstatus
+) => {
+  try {
+    await execute('START TRANSACTION');
+
+    try {
+      const insertGrpListQuery = `
+        INSERT INTO group_list (GrpList_Name, GrpList_Status) 
+        VALUES (?, ?)
+      `;
+
+      const [result] = await execute(insertGrpListQuery, [
+        grpname,
+        grpstatus
+      ]);
+      console.log('Result from execute:', result);
+
+      console.log('Account insertion result:', result);
+
+      const getGrpListIdQuery = 'SELECT LAST_INSERT_ID()';
+      const [grpListIdResult] = await execute(getGrpListIdQuery);
+      const grpListId = grpListIdResult[0]['LAST_INSERT_ID()'];
+
+      console.log('Account ID:', grpListId);
+
+      await execute('COMMIT');
+      return true;
+    } catch (error) {
+      console.error('Database error during account creation:', error);
+      await execute('ROLLBACK');
+      return false;
+    }
+  } catch (error) {
+    console.error('Transaction error:', error);
+    return false;
+  }
+};
+
+const createGrpTaskAndLinkToGrpList = async (grpname, grpcontent, grpstatus, grplistId) => {
+  try {
+      await execute('START TRANSACTION');
+
+      try {
+          const insertTaskQuery = `
+              INSERT INTO group_task (GrpTask_Name, GrpTask_Content, GrpTask_Status)
+              VALUES (?, ?, ?)
+          `;
+          const [grpTaskResult] = await execute(insertGrpTaskQuery, [grpname, grpcontent, grpstatus]);
+          const grpTaskId = grpTaskResult.insertId;
+
+          const linkGrpTaskToGrpListQuery = `
+              INSERT INTO group_link (GrpList_ID, GrpTask_ID)
+              VALUES (?, ?)
+          `;
+          await execute(linkGrpTaskToGrpListQuery, [grplistId, grptaskId]);
+
+          await execute('COMMIT');
+          return true;
+      } catch (error) {
+          await execute('ROLLBACK');
+          console.error('Database error during task creation:', error);
+          return false;
+      }
+  } catch (error) {
+      console.error('Transaction error:', error);
+      return false;
+  }
+};
+
 export {
   showData,
   fetchAccounts,
@@ -394,5 +480,8 @@ export {
   createGroup,
   verifyGroupCreation,
   addMemberToGroup,
+  createGroupList,
+  verifyGrpListCreation,
+  createGrpTaskAndLinkToGrpList,
   execute
 };

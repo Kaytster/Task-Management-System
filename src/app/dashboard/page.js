@@ -216,9 +216,9 @@ export default async function Home() {
                             {members.map((member) => (
                               <li key = {member.Account_Username}>
                                 <img
-                                    src={`/${member.Account_Username}.png`} // Construct the image path
+                                    src={`/${member.Account_Username}.png`} 
                                     alt={`Profile picture of user ${member.User_ID}`}
-                                    style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} // Optional styling
+                                    style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} 
                                 />
                                 {member.Account_Username}
                               </li>
