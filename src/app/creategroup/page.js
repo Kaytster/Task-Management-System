@@ -1,9 +1,77 @@
+"use client";
+import Cookies from 'js-cookie';
 import Header from "../components/header";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
-import '../styles/creategroup.css'
+import '../styles/createlist.css'
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function CreateGroup() {
+
+  const router = useRouter();
+      const [name, setName] = useState('');
+      const [errors, setErrors] = useState({});
+      const [isFormValid, setIsFormValid] = useState(false);
+  
+      useEffect(() => {
+          console.log('Validating form');
+          validateForm();
+      }, [name]);
+  
+      // Validate form
+      const validateForm = () => {
+          let errors = {};
+          console.log('Validating creation');
+  
+          if (!name) {
+              errors.name = 'Group Name is required.'; 
+          }
+  
+          setErrors(errors);
+          setIsFormValid(Object.keys(errors).length === 0);
+          console.log('Validation complete', errors, isFormValid);
+      };
+  
+      const handleSubmit = async (e) => {
+        console.log("handleSubmit is running!");
+        e.preventDefault();
+    
+        const userIdFromCookie = Cookies.get('userId');
+    
+        if (!userIdFromCookie) {
+            console.error("User ID not found in cookie!");
+            setErrors({ form: 'Could not identify the user. Please log in again.' });
+            return; 
+        }
+    
+        if (isFormValid) {
+            try {
+                console.log('Sending list creation request with userId:', userIdFromCookie);
+                const response = await fetch('/api/createAgroup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, status: 'incomplete', userId: userIdFromCookie }),
+                });
+    
+                const result = await response.json();
+    
+                if (response.ok) {
+                    console.log('List creation successful!', result);
+                    router.push('/tasklists');
+                } else {
+                    setErrors({ form: result.message || 'Failed to create list' });
+                    console.error('List creation failed:', result.message);
+                }
+            } catch (error) {
+                console.error('Error creating list:', error);
+                setErrors({ form: 'Internal server error' });
+            }
+        } else {
+            console.log('Form has errors. Please correct them.');
+        }
+    };
+
     return (
       <html>
         <head>
@@ -14,24 +82,18 @@ export default function CreateGroup() {
             <br />
             <br />
             <div id='form'>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <h2>Create a Group</h2>
                     <div class="mb-3">
                         <label class="form-label"><b>Name</b></label>
-                        <input type="listname" class="form-control" id="InputListName"/>
-                    </div>
-                    <div class="mb-3">
-                      <h3>Users</h3>
-                        <label class="form-label"><b>First Name</b></label>
-                        <input type="firstname" class="form-control" id="InputFirstName"/>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label"><b>Last Name</b></label>
-                        <input type="lastname" class="form-control" id="InputLastName"/>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label"><b>User ID</b></label>
-                        <input type="userid" class="form-control" id="InputUserID"/>
+                        <input
+                                    type="text" 
+                                    className="form-control"
+                                    id="InputListName"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                                {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
                     </div>
                     <button type="submit" class="btn-primary">Create</button> 
                 </form>

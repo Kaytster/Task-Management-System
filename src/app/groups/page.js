@@ -1,138 +1,66 @@
-import Image from "next/image";
-import Header from "../components/header";
-import 'bootstrap/dist/css/bootstrap.css'
+import Header from "../components/header.js";
+import 'bootstrap/dist/css/bootstrap.css';
 import '../globals.css';
-import '../styles/groups.css'
+import '../styles/tasklists.css';
+import { cookies } from "next/headers";
+import Link from "next/link.js";
 
+import { showGroups, getGroupMembers } from "../lib/db/showData.js"; // Assuming you created these
 
-export default function Groups() {
+async function getUserGroups(userId) {
+  const groups = await showGroups(userId);
+  const groupsWithMembers = await Promise.all(groups.map(async (group) => {
+    console.log("About to fetch members for Group ID:", group.Group_ID); // ADD THIS LINE
+    const members = await getGroupMembers(group.Group_ID); // Assuming your group object has a Group_ID
+    return { ...group, members }; // Add the members to the group object
+  }));
+  return groupsWithMembers;
+}
+
+export default async function GroupList() {
+    const cookieStore = cookies();
+    const userIdString = cookieStore.get('userId')?.value;
+  
+    if (!userIdString) {
+      return <div>Please log in!</div>;
+    }
+  
+    const userId = parseInt(userIdString, 10);
+  
+    if (isNaN(userId)) {
+      return <div>Invalid user ID. Please log in again.</div>;
+    }
+  
+    const groupsWithMembers = await getUserGroups(userId);
+  
     return (
-      <html>
-        <head>
-        </head>
-        <body>
-          <Header />
-        {/* <div> Icons made by <a href="https://www.flaticon.com/authors/kmg-design" title="kmg design"> kmg design </a> 
-        from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div> */}
-          <main>
-            <br/>
-            <br/>
-            <div className="row"> 
-              <div className="col">
-                <h1>My Group</h1>
-                <div id="user">
-                    <Image
-                        src="/user.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>You</p>
+      <div>
+        <Header />
+        <main>
+          <br />
+          <br />
+          <div className="row">
+            {groupsWithMembers.map((group) => (
+              <div className="card" key={group.Group_ID} style={{ marginRight: '80px', marginBottom: '20px' }}>
+                <div className="card-title">
+                  <h1>{group.Group_Name}</h1> {/* Assuming your group object has a Group_Name */}
                 </div>
-                <br/>
-                <div id="user">
-                    <Image
-                        src="/user1.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>User 1</p>
-                </div>
-                <br/>
-                <div id="user">
-                    <Image
-                        src="/user2.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>User 2</p>
-                </div>
-                <br/>
-                <div id="user">
-                    <Image
-                        src="/user3.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>User 4</p>
-                </div>
-                <br/>
-                <div id="user">
-                    <Image
-                        src="/user4.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>User 4</p>
+                <div className="card-body">
+                  <h3>Members:</h3>
+                  <ul>
+                  {group.members && group.members.map((member) => {
+    console.log("Inside group.members map, member object is:", member); // ADD THIS LINE
+    return <li key={member.Account_Username}>{member.Account_Username}</li>;
+  })}
+                  </ul>
+                  <Link href={`/creategroup/editgroup/${group.Group_ID}`}> 
+                    <button>View Group</button>
+                  </Link>
                 </div>
               </div>
-              <div className="col">
-                <h1>My Group</h1>
-                <div id="user">
-                    <Image
-                        src="/user.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>You</p>
-                </div>
-                <br/>
-                <div id="user">
-                    <Image
-                        src="/user5.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>User 5</p>
-                </div>
-                <br/>
-                <div id="user">
-                    <Image
-                        src="/user6.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>User 6</p>
-                </div>
-                <br/>
-                <div id="user">
-                    <Image
-                        src="/user7.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>User 7</p>
-                </div>
-                <br/>
-                <div id="user">
-                    <Image
-                        src="/user8.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>User 8</p>
-                </div>
-                <br/>
-                <div id="user">
-                    <Image
-                        src="/user9.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>User 9</p>
-                </div>
-                <br/>
-                <div id="user">
-                    <Image
-                        src="/user10.png"
-                        width={50}
-                        height={50}
-                    />
-                    <p>User 10</p>
-                </div>
-              </div>
-            </div>
-          </main>
-        </body>
-      </html>
+            ))}
+          </div>
+        </main>
+      </div>
     );
   }

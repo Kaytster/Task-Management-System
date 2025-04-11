@@ -98,6 +98,7 @@ const recentGroup = async (userId) => {
 };
 
 const getGroupMembers = async (groupId) => {
+  console.log("getGroupMembers was called with Group ID:", groupId); // ADD THIS LINE
   try {
       const query = `
           SELECT a.Account_Username
@@ -145,4 +146,33 @@ const showLists = async (userId) => {
     }
   };
 
-  export {recentList, recentListTasks, recentGroup, getGroupMembers, getGroupListsAndTasks, showLists};
+  const showGroups = async (userId) => {
+    try {
+      const query = 
+        'SELECT g.Group_ID, g.Group_Name FROM `group` g JOIN group_members gm ON g.Group_ID = gm.Group_ID WHERE gm.User_ID = ?' ;
+      const [rows] = await pool.execute(query, [userId]);
+      console.log("Data returned from showGroups:", rows); // Keep this line for now
+      return rows;
+    } catch (error) {
+      console.error('Database Error:', error);
+      throw new Error('Failed to fetch user\'s groups.');
+    }
+  };
+
+  const showMembers = async (groupId) => {
+    try {
+      console.log('Getting members for Group ID:', groupId); // <--- ADD THIS LINE!
+      const query = `
+        SELECT * FROM group_members
+        WHERE Group_ID = ?
+      `;
+      const [rows] = await pool.execute(query, [groupId]);
+      return rows;
+    } catch (error) {
+      console.error('Database Error:', error);
+      throw new Error('Failed to fetch data.');
+    }
+  };
+
+
+  export {recentList, recentListTasks, recentGroup, getGroupMembers, getGroupListsAndTasks, showLists, showGroups, showMembers};

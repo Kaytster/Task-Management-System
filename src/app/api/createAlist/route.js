@@ -42,12 +42,11 @@
 //     }
 // }
 
-// src/app/api/createAlist/route.js
-// src/app/api/createAlist/route.js
-import { execute } from '../../lib/db';
-import { NextResponse } from 'next/server'; // Make sure this import is present
 
-export async function POST(req, res) { // The 'res' parameter is still there but won't be used directly
+import { execute } from '../../lib/db';
+import { NextResponse } from 'next/server'; 
+
+export async function POST(req, res) {
     console.log('API createAlist POST handler invoked');
     const { name, status, userId } = await req.json();
 
@@ -75,9 +74,9 @@ export async function POST(req, res) { // The 'res' parameter is still there but
 }
 
 import { execute } from '../../lib/db';
-import { NextResponse } from 'next/server'; // Make sure this import is present
+import { NextResponse } from 'next/server'; 
 
-export async function POST(req, res) { // The 'res' parameter is still there but won't be used directly
+export async function POST(req, res) { 
     console.log('API createAlist POST handler invoked');
     const { name, status, userId } = await req.json();
 

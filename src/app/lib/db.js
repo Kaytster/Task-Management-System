@@ -223,9 +223,9 @@ const verifyListCreation = async (
 
       const insertUserQuery =
         'INSERT INTO user (User_Fname, User_Lname, Account_ID) VALUES (?, ?, ?)';
-        const [userResult] = await execute(insertUserQuery, [firstname, lastname, accountId]); // Get the result
-        const userId = userResult.insertId; // Get the generated User_ID
-        console.log('User ID:', userId); // Log the User_ID
+        const [userResult] = await execute(insertUserQuery, [firstname, lastname, accountId]); 
+        const userId = userResult.insertId; 
+        console.log('User ID:', userId); 
       
 
       await execute('COMMIT');
@@ -270,9 +270,9 @@ const verifyTaskCreation = async (
 
       const insertUserQuery =
         'INSERT INTO user (User_Fname, User_Lname, Account_ID) VALUES (?, ?, ?)';
-        const [userResult] = await execute(insertUserQuery, [firstname, lastname, accountId]); // Get the result
-        const userId = userResult.insertId; // Get the generated User_ID
-        console.log('User ID:', userId); // Log the User_ID
+        const [userResult] = await execute(insertUserQuery, [firstname, lastname, accountId]); 
+        const userId = userResult.insertId; 
+        console.log('User ID:', userId); 
       
 
       await execute('COMMIT');
@@ -319,6 +319,68 @@ const createTaskAndLinkToList = async (name, content, status, listId) => {
   }
 };
 
+const createGroup = async (groupID, groupName) => {
+  try {
+    const query = 'INSERT INTO `group` (Group_Name) VALUES (?)';
+    await execute(query, [groupName]);
+    console.log('Database inserts successful');
+    return true;
+  } catch (error) {
+    console.log('Rolling back transaction due to error:', error);
+    await execute('ROLLBACK');
+    console.error('Database Error:', error);
+    return false;
+  }
+};
+
+const verifyGroupCreation = async (
+  name
+) => {
+  try {
+    await execute('START TRANSACTION');
+
+    try {
+      const insertGroupQuery = 'INSERT INTO `group` (Group_Name) VALUES (?)';
+
+      const [result] = await execute(insertGroupQuery, [
+        name
+      ]);
+      console.log('Result from execute:', result);
+
+      console.log('Account insertion result:', result);
+
+      const getGroupIdQuery = 'SELECT LAST_INSERT_ID()';
+      const [groupIdResult] = await execute(getGroupIdQuery);
+      const groupId = groupIdResult[0]['LAST_INSERT_ID()'];
+
+      console.log('Account ID:', groupId);
+      await execute('COMMIT');
+      return true;
+    } catch (error) {
+      console.error('Database error during account creation:', error);
+      await execute('ROLLBACK');
+      return false;
+    }
+  } catch (error) {
+    console.error('Transaction error:', error);
+    return false;
+  }
+};
+
+const addMemberToGroup = async (userId, groupId) => {
+  try {
+    const query = `
+      INSERT INTO group_members (User_ID, Group_ID)
+      VALUES (?, ?)
+    `;
+    const [result] = await execute(query, [userId, groupId]);
+    return result.affectedRows > 0; // Returns true if a row was successfully inserted
+  } catch (error) {
+    console.error('Database error adding member to group:', error);
+    return false;
+  }
+};
+
 export {
   showData,
   fetchAccounts,
@@ -329,5 +391,8 @@ export {
   verifyListCreation,
   verifyTaskCreation,
   createTaskAndLinkToList,
+  createGroup,
+  verifyGroupCreation,
+  addMemberToGroup,
   execute
 };

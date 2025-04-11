@@ -64,6 +64,11 @@ export default function Login() {
                         Cookies.set('userId', String(result.userId), { expires: 7 }); // Corrected line!
                         console.log('User ID cookie set:', result.userId);
                     }
+
+                    if (result.accountType) {
+                        Cookies.set('accountType', result.accountType, { expires: 7 });
+                        console.log('Account Type cookie set:', result.accountType);
+                    }
                     
                     // Navigate to another page when logged in
                     router.push('/tasklists');

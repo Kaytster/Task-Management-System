@@ -127,9 +127,9 @@ import '../globals.css';
 import '../styles/createlist.css'
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-// import { verifyListCreation } from "../lib/db"; // You're not using this import in this component
 
-const CreateList = () => { // Changed component name to be more standard (PascalCase)
+
+const CreateList = () => { 
     const router = useRouter();
     const [name, setName] = useState('');
     const [errors, setErrors] = useState({});
@@ -146,7 +146,7 @@ const CreateList = () => { // Changed component name to be more standard (Pascal
         console.log('Validating creation');
 
         if (!name) {
-            errors.name = 'List Name is required.'; // Corrected the error key
+            errors.name = 'List Name is required.'; 
         }
 
         setErrors(errors);
@@ -158,12 +158,12 @@ const CreateList = () => { // Changed component name to be more standard (Pascal
       console.log("handleSubmit is running!");
       e.preventDefault();
   
-      const userIdFromCookie = Cookies.get('userId'); // Replace 'userId' with the actual name of your cookie
+      const userIdFromCookie = Cookies.get('userId');
   
       if (!userIdFromCookie) {
           console.error("User ID not found in cookie!");
           setErrors({ form: 'Could not identify the user. Please log in again.' });
-          return; // Stop the function if we can't get the userId
+          return; 
       }
   
       if (isFormValid) {
@@ -196,7 +196,7 @@ const CreateList = () => { // Changed component name to be more standard (Pascal
     return (
         <html>
             <head>
-                {/* You might want to put your page title here */}
+                
             </head>
             <body>
                 <Header />
@@ -204,18 +204,18 @@ const CreateList = () => { // Changed component name to be more standard (Pascal
                     <br />
                     <br />
                     <div id='form'>
-                        <form onSubmit={handleSubmit}> {/* Added onSubmit handler to the form */}
+                        <form onSubmit={handleSubmit}> 
                             <h2>Create a Task List</h2>
                             <div className="mb-3">
                                 <label className="form-label"><b>Name</b></label>
                                 <input
-                                    type="text" // Changed type to "text" for the list name
+                                    type="text" 
                                     className="form-control"
                                     id="InputListName"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                 />
-                                {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>} {/* Corrected error display */}
+                                {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
                             </div>
                             <button type="submit" className="btn-primary">Create</button>
                         </form>
@@ -226,4 +226,4 @@ const CreateList = () => { // Changed component name to be more standard (Pascal
     );
 }
 
-export default CreateList; // Ensure the component name matches the export
+export default CreateList; 
