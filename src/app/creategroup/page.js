@@ -8,11 +8,48 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function CreateGroup() {
-
-  const router = useRouter();
-      const [name, setName] = useState('');
-      const [errors, setErrors] = useState({});
-      const [isFormValid, setIsFormValid] = useState(false);
+    const accountTypeString = Cookies.get('accountType');
+    console.log('1. Account Type from cookie (string):', accountTypeString);
+    
+    if (!accountTypeString) {
+        return (
+        <html>
+            <head>
+            </head>
+            <body>
+              <Header />
+              <main>
+                <br />
+                <br />
+                <div class='card'>
+                    <h1>Please log in!</h1>
+                </div>
+              </main>
+            </body>
+          </html>
+          )
+    } else if (accountTypeString !== 'Group Admin') {
+        return (
+            <html>
+                <head>
+                </head>
+                <body>
+                  <Header />
+                  <main>
+                    <br />
+                    <br />
+                    <div class='card'>
+                        <h1>Only Group Admin Users have access to this page.</h1>
+                    </div>
+                  </main>
+                </body>
+              </html>
+              )
+    } else {
+    const router = useRouter();
+    const [name, setName] = useState('');
+    const [errors, setErrors] = useState({});
+    const [isFormValid, setIsFormValid] = useState(false);
   
       useEffect(() => {
           console.log('Validating form');
@@ -103,3 +140,4 @@ export default function CreateGroup() {
       </html>
     );
   }
+};

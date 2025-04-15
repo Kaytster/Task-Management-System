@@ -82,47 +82,93 @@ const verifyUserCredentials = async (username, password) => {
 };
 
 
+// async function handleLogin(username, password) {
+//   try {
+//       console.log("handleLogin called with:", username, password);
+//       const accountQuery = 'SELECT Account_ID, Account_Password FROM account WHERE Account_Username = ?';
+//       const [accountRows] = await execute(accountQuery, [username]);
+
+//       if (accountRows && accountRows.length > 0) {
+//           const account = accountRows[0];
+//           const passwordMatch = await bcrypt.compare(password, account.Account_Password);
+
+//           if (passwordMatch) {
+//               const accountId = account.Account_ID;
+//               console.log('Account ID:', accountId);
+
+//               const userQuery = 'SELECT User_ID FROM user WHERE Account_ID = ?';
+//               const [userRows] = await execute(userQuery, [accountId]);
+
+//               if (userRows && userRows.length > 0) {
+//                   const userId = userRows[0].User_ID;
+//                   console.log('User ID:', userId);
+
+//                   if (userId) {
+//                       // Return the userId
+//                       return userId;
+//                   }
+//               } else {
+//                   console.log('User not found for this account.');
+//                   return null;
+//               }
+//           } else {
+//               console.log('Password does not match.');
+//               return null;
+//           }
+//       } else {
+//           console.log('Account not found.'); 
+//           return null;
+//       }
+//   } catch (error) {
+//       console.error('Database Error:', error);
+//       console.log('Login failed or error occurred.');
+//       return null;
+//   }
+// }
+
 async function handleLogin(username, password) {
   try {
-      console.log("handleLogin called with:", username, password);
-      const accountQuery = 'SELECT Account_ID, Account_Password FROM account WHERE Account_Username = ?';
-      const [accountRows] = await execute(accountQuery, [username]);
+    console.log("handleLogin called with:", username, password);
+    const accountQuery = 'SELECT Account_ID, Account_Password, Account_Type FROM account WHERE Account_Username = ?'; // Select Account_Type
+    const [accountRows] = await execute(accountQuery, [username]);
 
-      if (accountRows && accountRows.length > 0) {
-          const account = accountRows[0];
-          const passwordMatch = await bcrypt.compare(password, account.Account_Password);
+    if (accountRows && accountRows.length > 0) {
+      const account = accountRows[0];
+      const passwordMatch = await bcrypt.compare(password, account.Account_Password);
 
-          if (passwordMatch) {
-              const accountId = account.Account_ID;
-              console.log('Account ID:', accountId);
+      if (passwordMatch) {
+        const accountId = account.Account_ID;
+        const accountType = account.Account_Type; // Get the account type
+        console.log('Account ID:', accountId);
+        console.log('Account Type:', accountType);
 
-              const userQuery = 'SELECT User_ID FROM user WHERE Account_ID = ?';
-              const [userRows] = await execute(userQuery, [accountId]);
+        const userQuery = 'SELECT User_ID FROM user WHERE Account_ID = ?';
+        const [userRows] = await execute(userQuery, [accountId]);
 
-              if (userRows && userRows.length > 0) {
-                  const userId = userRows[0].User_ID;
-                  console.log('User ID:', userId);
+        if (userRows && userRows.length > 0) {
+          const userId = userRows[0].User_ID;
+          console.log('User ID:', userId);
 
-                  if (userId) {
-                      // Return the userId
-                      return userId;
-                  }
-              } else {
-                  console.log('User not found for this account.');
-                  return null;
-              }
-          } else {
-              console.log('Password does not match.');
-              return null;
+          if (userId) {
+            // Return both userId and accountType
+            return { userId, accountType };
           }
-      } else {
-          console.log('Account not found.');
+        } else {
+          console.log('User not found for this account.');
           return null;
+        }
+      } else {
+        console.log('Password does not match.');
+        return null;
       }
-  } catch (error) {
-      console.error('Database Error:', error);
-      console.log('Login failed or error occurred.');
+    } else {
+      console.log('Account not found.');
       return null;
+    }
+  } catch (error) {
+    console.error('Database Error:', error);
+    console.log('Login failed or error occurred.');
+    return null;
   }
 }
 

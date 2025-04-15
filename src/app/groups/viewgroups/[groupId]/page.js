@@ -65,7 +65,7 @@ export default function ViewGroup() {
                     </div>
                   )}
                   {item.GrpTask_Name && (
-                    <div className="card-value">
+                    <div className="card-">
                       <p>{item.GrpTask_Name}</p>
                     </div>
                   )}
