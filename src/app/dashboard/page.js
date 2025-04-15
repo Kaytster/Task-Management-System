@@ -77,7 +77,7 @@
 //     }
 
 'use server';
-import Cookies from "js-cookie";
+import { cookies } from "next/headers";
 import { recentList, recentListTasks, recentGroup, getGroupMembers, getGroupListsAndTasks } from "../lib/db/showData";
 import React from "react";
 import Header from "../components/header";
