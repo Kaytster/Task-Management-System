@@ -1,17 +1,39 @@
+:root {
+    --colour1: #FE107E;
+    --colour2: rgb(247, 110, 245);
+    --shadow: 0 10px 30px rgba(0, 103, 177, 0.15);
+    --radius: 16px;
+    --transition: all 0.3s ease;
+    --gradient: linear-gradient(135deg, var(--colour1), var(--colour2));
+  }
+
 body{
     background-color: #F7E8EF;
   }
-h1 {
-    font-size: 64px;
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 25px;
+    margin-left: 40px;
+    justify-content: flex-start;
+  }
+
+  .card {
+    width: 44%;
+    display: flexbox;
+    border-color: #FE107E;
+    border-width: 2px;
+    border-style: solid;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  .card > .card-title  {
     color: #FE107E;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-#form {
-    display: flex;
-    align-items: center;
-}
+  }
 
 form {
     margin: auto;
@@ -23,14 +45,15 @@ form {
     border-style: solid;
     border-width: 2px;
     border-color: #FE107E;
-    height: 400px;
+    height: fit-content;
     width:600px;
     background-color: whitesmoke;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 } 
 
 h2 {
     font-size: 40px;
-    color: #FAB4D5;
+    color: #FE107E;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -50,20 +73,14 @@ input {
 }
 
 button {
-    align-self: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-     width: 300px;
-     height: 60px;
-     border-width: 5px;
-     border-radius: 10px;
-     border-color: #FE107E;
-     border-style: solid;
-     font-family: Arial, Helvetica, sans-serif;
-     font-size: 32px;
-     text-align: center;
-     color: #FE107E;
-     background-color: #FAB4D5;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    width: 100px;
+    height: 50px;
+    border-radius: 50px;
+    background: var(--gradient);
+    align-self: flex-start;
 }
 
 p {
