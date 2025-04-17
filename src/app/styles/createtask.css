@@ -14,14 +14,13 @@ body{
   .row {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     margin-bottom: 25px;
-    margin-left: 40px;
+    margin-top: 25px;
     justify-content: flex-start;
   }
 
   .card {
-    width: 44%;
+    width: 33%;
     display: flexbox;
     border-color: #FE107E;
     border-width: 2px;

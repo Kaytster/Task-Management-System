@@ -225,6 +225,10 @@ const CreateTask = () => {
     const [isFormValid, setIsFormValid] = useState(false);
     const [tasks, setTasks] = useState([]); // State to hold the tasks for the current list
     const [checkedTasks, setCheckedTasks] = useState([]); // State to hold IDs of checked tasks
+    const [openTaskId, setOpenTaskId] = useState(null); // State to track the open dropdown
+    const [editTaskName, setEditTaskName] = useState(''); // State for editing task name
+    const [editTaskContent, setEditTaskContent] = useState(''); // State for editing task content
+
 
     useEffect(() => {
         validateForm();
@@ -362,6 +366,69 @@ const CreateTask = () => {
         }
     };
 
+    const handleDropdownToggle = (taskId) => {
+        // When a task is clicked, toggle the dropdown for that task
+        if (openTaskId === taskId) {
+            setOpenTaskId(null); // Close if already open
+        } else {
+            const taskToEdit = tasks.find(task => task.IndTask_ID === taskId);
+            if (taskToEdit) {
+                setEditTaskName(taskToEdit.IndTask_Name); // Set initial values for editing
+                setEditTaskContent(taskToEdit.IndTask_Content); // Assuming you have IndTask_Content in your task object
+                setOpenTaskId(taskId); // Open the clicked task
+            }
+        }
+    };
+
+    const handleEditNameChange = (event) => {
+        setEditTaskName(event.target.value);
+    };
+
+    const handleEditContentChange = (event) => {
+        setEditTaskContent(event.target.value);
+    };
+
+    const handleSaveTask = async (taskId) => {
+        // Function to save the edited task to the database
+        console.log('Saving task:', taskId, editTaskName, editTaskContent);
+        // You'll need to make an API call here to update the task
+        try {
+            const response = await fetch('/api/updateTasks', { // You'll need to create this API route
+                method: 'POST', // Or 'PUT', depending on your API
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    IndTask_ID: taskId,
+                    IndTask_Name: editTaskName,
+                    IndTask_Content: editTaskContent,
+                }),
+            });
+
+            if (response.ok) {
+                console.log('Task updated successfully!');
+                setOpenTaskId(null); // Close the dropdown after saving
+                // Re-fetch tasks to update the list
+                fetch(`/api/tasks?listId=${listId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        setTasks(data);
+                    })
+                    .catch(error => {
+                        console.error("Error re-fetching tasks after update:", error);
+                    });
+            } else {
+                console.error('Failed to update task:', await response.json());
+                // Handle error messages
+            }
+        } catch (error) {
+            console.error('Error updating task:', error);
+            // Handle error messages
+        }
+    };
+
+    
+
     return (
         <html>
             <head>
@@ -431,6 +498,52 @@ const CreateTask = () => {
                                 <button type="submit" className="btn-primary">Create</button>
                             </form>
                         
+                            <div className="card" style={{ width: '33%' }}>
+                    <h2 className="card-title">Modify Tasks</h2>
+                    <div className="card-body">
+                        {tasks.length > 0 ? (
+                            <ul className="list-group">
+                                {tasks.map(task => (
+                                    <li key={task.IndTask_ID} className="list-group-item">
+                                        <div className="d-flex align-items-center">
+                                            <span onClick={() => handleDropdownToggle(task.IndTask_ID)} style={{ cursor: 'pointer' }}>
+                                                {task.IndTask_Name}
+                                            </span>
+                                        </div>
+                                        {openTaskId === task.IndTask_ID && (
+                                            <div style={{ marginTop: '10px', border: '1px solid #ccc', padding: '10px' }}>
+                                                <div className="mb-3">
+                                                    <label className="form-label"><b>Name:</b></label>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        value={editTaskName}
+                                                        onChange={handleEditNameChange}
+                                                    />
+                                                </div>
+                                                <div className="mb-3">
+                                                    <label className="form-label"><b>Content:</b></label>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        value={editTaskContent}
+                                                        onChange={handleEditContentChange}
+                                                    />
+                                                </div>
+                                                <button className="btn btn-primary" onClick={() => handleSaveTask(task.IndTask_ID)}>
+                                                    Save
+                                                </button>
+                                            </div>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>No tasks in this list yet.</p>
+                        )}
+                                </div>
+                            </div>
+
                     </div>
                 {/* </main> */}
             </body>
